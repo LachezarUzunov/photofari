@@ -22,6 +22,10 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/photos" element={<Photos />}></Route>
+        <Route path="/profiles" element={<Profiles />}></Route>
+        <Route path="/contacts" element={<Contacts />}></Route>
+
+        {/* <Route path="/my-profile" element={<Contacts />}></Route> */}
       </Routes>
 
       <Footer />
