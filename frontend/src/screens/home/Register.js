@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import classes from "./Register.module.css";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const Register = ({ onComponentChange }) => {
   const [name, setName] = useState("");
@@ -8,8 +9,35 @@ const Register = ({ onComponentChange }) => {
   const [password, setPassword] = useState("");
   const [repass, setRepass] = useState("");
 
-  const onChange = () => {};
-  const onSubmit = () => {};
+  const nameInputHandler = (e) => {
+    setName(e.target.value);
+  };
+
+  const emailInputHandler = (e) => {
+    setEmail(e.target.value);
+  };
+
+  const passInputHandler = (e) => {
+    setPassword(e.target.value);
+  };
+
+  const repassInputHandler = (e) => {
+    setRepass(e.target.value);
+  };
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    if (password.length < 8) {
+      toast.error("Паролата трябва да е поне 8 символа");
+      return;
+    }
+
+    const profileData = {
+      name,
+      email,
+      password,
+    };
+  };
 
   const handleComponentChange = () => {
     onComponentChange(false);
@@ -27,7 +55,7 @@ const Register = ({ onComponentChange }) => {
             id="name"
             name="name"
             value={name}
-            onChange={onChange}
+            onChange={nameInputHandler}
             placeholder="Димитър Иванов"
             required
           ></input>
@@ -40,7 +68,7 @@ const Register = ({ onComponentChange }) => {
             id="email"
             name="email"
             value={email}
-            onChange={onChange}
+            onChange={emailInputHandler}
             required
           ></input>
           <label className="genLabel" htmlFor="password">
@@ -51,7 +79,7 @@ const Register = ({ onComponentChange }) => {
             id="password"
             name="password"
             value={password}
-            onChange={onChange}
+            onChange={passInputHandler}
             placeholder="Въведете парола"
             required
           ></input>
@@ -64,7 +92,7 @@ const Register = ({ onComponentChange }) => {
             id="repass"
             name="repass"
             value={repass}
-            onChange={onChange}
+            onChange={repassInputHandler}
             placeholder="Повторете паролата"
             required
           ></input>
