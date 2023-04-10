@@ -1,10 +1,32 @@
 import "./App.css";
 
+// Setting up React Toastify for notifications
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
+
+import { Routes, Route } from "react-router-dom";
+
+// Layout components
+import MainNavigation from "./components/layout/MainNavigation";
+import Footer from "./components/layout/Footer";
+
+import Home from "./screens/home/Home";
+import Photos from "./screens/photos/Photos";
+import Profiles from "./screens/users/Profiles";
+import Contacts from "./screens/contacts/Contacts";
+
 function App() {
   return (
-    <div className="App">
-      <h1>Hello</h1>
-    </div>
+    <main>
+      <MainNavigation />
+      <Routes>
+        <Route path="/" element={<Home />}></Route>
+        <Route path="/photos" element={<Photos />}></Route>
+      </Routes>
+
+      <Footer />
+      <ToastContainer />
+    </main>
   );
 }
 
