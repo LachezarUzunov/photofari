@@ -7,6 +7,7 @@ const publishPhoto = async (photo, token) => {
     body: JSON.stringify(photo),
     headers: {
       Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
     },
   });
 

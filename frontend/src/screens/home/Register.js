@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 // Importing redux state hooks
 import { useSelector, useDispatch } from "react-redux";
-import { register, reset } from "../../features/auth/authSlice";
+import { register } from "../../features/auth/authSlice";
 import Spinner from "../../components/layout/Spinner";
 
 const Register = ({ onComponentChange }) => {
@@ -27,9 +27,7 @@ const Register = ({ onComponentChange }) => {
     if (isSuccess && user) {
       toast.success("Регистрацията е успешна!");
     }
-
-    dispatch(reset());
-  }, [isError, isSuccess, user, message, dispatch]);
+  }, [isError, isSuccess, user, message]);
 
   const nameInputHandler = (e) => {
     setName(e.target.value);

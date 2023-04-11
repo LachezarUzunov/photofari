@@ -15,7 +15,10 @@ const photoSchema = mongoose.Schema(
       type: String,
       required: [true, "Моля добавете описание"],
     },
-    photo: { type: String, required: [true, "Моля добавете снимка"] },
+    photo: {
+      type: String,
+      required: [true, "Моля добавете снимка"],
+    },
   },
   { timestamps: true }
 );

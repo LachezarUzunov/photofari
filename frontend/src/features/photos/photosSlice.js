@@ -14,6 +14,7 @@ const initialState = {
 export const uploadPhoto = createAsyncThunk(
   "photo/upload",
   async (photo, thunkAPI) => {
+    console.log(photo);
     try {
       const token = thunkAPI.getState().auth.user.token;
       // console.log(photo);

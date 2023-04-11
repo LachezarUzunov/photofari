@@ -3,11 +3,9 @@ const router = express.Router();
 const {
   postPhoto,
   getPhotoById,
-  getPhotos,
   deletePhotoById,
-  postComment,
-  getComments,
-} = require("../controllers/recipesController");
+  getLastTen,
+} = require("../controllers/photoController");
 
 const { protect } = require("../middleware/authMiddleware");
 
@@ -15,15 +13,16 @@ const { protect } = require("../middleware/authMiddleware");
 router.post("/", protect, postPhoto);
 router.delete("/:id", protect, deletePhotoById);
 
-// GET list of user's recipes
-//router.get("/myRecipes", getMyRecipes);
+// GET list of user's photos
+//router.get("/myPhotos", getMyPhotos);
 
-// GET public recipes and single recipe
-router.get("/", getPhotos);
+// GET public photos and single photo
+//router.get("/", getPhotos);
+router.get("/lastTen", getLastTen);
 router.get("/:id", getPhotoById);
 
 // GET, POST and DELETE comments
-router.post("/comments", protect, postComment);
-router.get("/:id/comments", getComments);
+// router.post("/comments", protect, postComment);
+// router.get("/:id/comments", getComments);
 
 module.exports = router;

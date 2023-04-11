@@ -122,7 +122,9 @@ const AddPhotos = () => {
         ></textarea>
 
         <div className={classes.upload__button}>
-          <label htmlFor="pic">Добави снимка</label>
+          <label className="input__file_label" htmlFor="pic">
+            Добави снимка
+          </label>
           <input
             style={{ display: "none" }}
             type="file"

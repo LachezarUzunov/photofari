@@ -4,7 +4,7 @@ import { toast } from "react-toastify";
 
 // import redux hoods
 import { useDispatch, useSelector } from "react-redux";
-import { login, reset } from "../../features/auth/authSlice";
+import { login } from "../../features/auth/authSlice";
 import Spinner from "../../components/layout/Spinner";
 
 const Login = ({ onComponentChange }) => {
@@ -26,8 +26,6 @@ const Login = ({ onComponentChange }) => {
     if (isSuccess && user) {
       toast.success("Логнате се успешно");
     }
-
-    dispatch(reset());
   }, [isError, isSuccess, user, message, dispatch]);
 
   const emailInputHandler = (e) => {

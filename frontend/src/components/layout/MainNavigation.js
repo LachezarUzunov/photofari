@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import classes from "./MainNavigation.module.css";
 import { logout } from "../../features/auth/authSlice";
-import { reset } from "../../features/auth/authSlice";
+//import { reset } from "../../features/auth/authSlice";
 
 const MainNavigation = () => {
   const dispatch = useDispatch();
@@ -12,7 +12,7 @@ const MainNavigation = () => {
 
   const onLogout = () => {
     dispatch(logout());
-    dispatch(reset());
+    // dispatch(reset);
     navigate("/");
   };
   return (
