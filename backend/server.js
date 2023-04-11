@@ -33,5 +33,6 @@ app.use((req, res, next) => {
 
 // Routes
 app.use("/api/users", require("./routes/userRoutes"));
+app.use("/api/photos", require("./routes/photoRoutes"));
 
 app.listen(PORT, () => console.log(`Server started on port ${PORT}`));

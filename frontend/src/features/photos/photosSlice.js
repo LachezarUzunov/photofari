@@ -16,8 +16,8 @@ export const uploadPhoto = createAsyncThunk(
   async (photo, thunkAPI) => {
     try {
       const token = thunkAPI.getState().auth.user.token;
-      console.log(photo);
-      //   return await photosService.publishPhoto(photo, token);
+      // console.log(photo);
+      return await photosService.publishPhoto(photo, token);
     } catch (error) {
       const message =
         (error.response &&

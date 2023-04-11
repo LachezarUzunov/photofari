@@ -3,6 +3,7 @@ import classes from "./AddPhotos.module.css";
 
 import { toast } from "react-toastify";
 import Spinner from "../../components/layout/Spinner";
+import { useNavigate } from "react-router-dom";
 
 // Importing Firebase upload functions
 import { storage } from "../../firebase";
@@ -22,18 +23,24 @@ const AddPhotos = () => {
   });
 
   const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   const { title, description, pic } = formData;
   const { user } = useSelector((state) => state.auth);
-  const { photo, isPhotoSuccess, isPhotoError, isPhotoLoading, photoMessage } =
+  const { isPhotoSuccess, isPhotoError, isPhotoLoading, photoMessage } =
     useSelector((state) => state.photo);
 
-  //   useEffect(() => {
-  //     if (isError) {
-  //       toast.error(message);
-  //     }
-  //     dispatch(reset());
-  //   }, [message, isError, isSuccess, navigate, dispatch]);
+  useEffect(() => {
+    if (isPhotoError) {
+      toast.error(photoMessage);
+    }
+
+    if (isPhotoSuccess) {
+      toast.success("Снимката е качена успешно");
+      navigate("/");
+    }
+    // dispatch(reset());
+  }, [photoMessage, isPhotoError, isPhotoSuccess, navigate, dispatch]);
 
   const titleInputHandler = (e) => {
     setFormData((prevState) => ({
@@ -56,6 +63,10 @@ const AddPhotos = () => {
     }));
   };
 
+  if (isPhotoLoading) {
+    return <Spinner />;
+  }
+
   const onSubmit = (e) => {
     e.preventDefault();
 
@@ -75,7 +86,7 @@ const AddPhotos = () => {
     const photoData = {
       title,
       description,
-      imagePath,
+      photo: imagePath,
     };
 
     dispatch(uploadPhoto(photoData));
