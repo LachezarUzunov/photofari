@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Register.module.css";
 import { toast } from "react-toastify";
 
 // Importing redux state hooks
 import { useSelector, useDispatch } from "react-redux";
-import { register } from "../../features/auth/authSlice";
+import { register, reset } from "../../features/auth/authSlice";
 import Spinner from "../../components/layout/Spinner";
 
 const Register = ({ onComponentChange }) => {
@@ -17,6 +17,19 @@ const Register = ({ onComponentChange }) => {
   const { user, isLoading, isSuccess, isError, message } = useSelector(
     (state) => state.auth
   );
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    // Notify on successful registration
+    if (isSuccess && user) {
+      toast.success("Регистрацията е успешна!");
+    }
+
+    dispatch(reset());
+  }, [isError, isSuccess, user, message, dispatch]);
 
   const nameInputHandler = (e) => {
     setName(e.target.value);

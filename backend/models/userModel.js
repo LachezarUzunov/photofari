@@ -17,6 +17,7 @@ const userSchema = mongoose.Schema(
     },
     pics: {
       type: Array,
+      default: [],
     },
     isAdmin: {
       type: Boolean,

@@ -2,9 +2,9 @@ import React from "react";
 
 const LastTen = () => {
   return (
-    <div>
+    <section className="main">
       <h1>LAST ten</h1>
-    </div>
+    </section>
   );
 };
 

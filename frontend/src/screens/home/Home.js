@@ -17,7 +17,6 @@ const Home = () => {
   };
   return (
     <section className={classes.main}>
-      <h1>HOME PAGE</h1>
       <LastTen />
       {!user && (
         <div>

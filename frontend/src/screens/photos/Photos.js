@@ -2,9 +2,9 @@ import React from "react";
 
 const Photos = () => {
   return (
-    <div>
+    <section className="main">
       <h1>Photos</h1>
-    </div>
+    </section>
   );
 };
 
