@@ -1,13 +1,21 @@
 import React, { useState } from "react";
 import classes from "./Register.module.css";
-import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+
+// Importing redux state hooks
+import { useSelector, useDispatch } from "react-redux";
+import { register } from "../../features/auth/authSlice";
 
 const Register = ({ onComponentChange }) => {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repass, setRepass] = useState("");
+
+  const dispatch = useDispatch();
+  const { user, isLoading, isSuccess, isError, message } = useSelector(
+    (state) => state.auth
+  );
 
   const nameInputHandler = (e) => {
     setName(e.target.value);
@@ -27,6 +35,10 @@ const Register = ({ onComponentChange }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
 
+    if (name.trim().length < 3) {
+      toast.error("Потребителското име трябва да съдържа поне три символа");
+    }
+
     if (password.length < 8) {
       toast.error("Паролата трябва да е поне 8 символа");
       return;
@@ -34,6 +46,12 @@ const Register = ({ onComponentChange }) => {
 
     if (password !== repass) {
       toast.error("Паролите не съвпадат!");
+      return;
+    }
+
+    if (email.trim().length < 5 || !email.includes("@")) {
+      toast.error("Моля въведете валиден имейл адрес");
+      return;
     }
 
     const profileData = {
@@ -41,6 +59,8 @@ const Register = ({ onComponentChange }) => {
       email,
       password,
     };
+
+    dispatch(register(profileData));
   };
 
   const handleComponentChange = () => {

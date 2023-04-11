@@ -1,12 +1,36 @@
 import React, { useState } from "react";
 import classes from "./Login.module.css";
 
+// import redux hoods
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../features/auth/authSlice";
+
 const Login = ({ onComponentChange }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const onChange = () => {};
-  const onSubmit = () => {};
+  const { user, isSuccess, isError, isLoading, message } = useSelector(
+    (state) => state.auth
+  );
+
+  const dispatch = useDispatch();
+
+  const emailInputHandler = (e) => {
+    setEmail(e.target.value);
+  };
+  const onPasswordInputHandler = (e) => {
+    setPassword(e.target.value);
+  };
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    const user = {
+      email,
+      password,
+    };
+
+    dispatch(login(user));
+  };
 
   const handleComponentChange = () => {
     onComponentChange(true);
@@ -25,7 +49,7 @@ const Login = ({ onComponentChange }) => {
             id="email"
             name="email"
             value={email}
-            onChange={onChange}
+            onChange={emailInputHandler}
             required
           ></input>
           <label className="genLabel" htmlFor="password">
@@ -36,7 +60,7 @@ const Login = ({ onComponentChange }) => {
             id="password"
             name="password"
             value={password}
-            onChange={onChange}
+            onChange={onPasswordInputHandler}
             placeholder="Въведете парола"
             required
           ></input>
