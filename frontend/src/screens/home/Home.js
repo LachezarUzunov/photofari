@@ -4,8 +4,13 @@ import Register from "./Register";
 import classes from "./Home.module.css";
 import Login from "./Login";
 
+// import redux hoods
+import { useSelector } from "react-redux";
+
 const Home = () => {
   const [regComponent, setRegComponent] = useState(true);
+
+  const { user } = useSelector((state) => state.auth);
 
   const onComponentChange = (prop) => {
     setRegComponent(prop);
@@ -14,10 +19,14 @@ const Home = () => {
     <section className={classes.main}>
       <h1>HOME PAGE</h1>
       <LastTen />
-      {regComponent ? (
-        <Register onComponentChange={onComponentChange} />
-      ) : (
-        <Login onComponentChange={onComponentChange} />
+      {!user && (
+        <div>
+          {regComponent ? (
+            <Register onComponentChange={onComponentChange} />
+          ) : (
+            <Login onComponentChange={onComponentChange} />
+          )}
+        </div>
       )}
     </section>
   );

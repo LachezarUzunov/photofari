@@ -5,6 +5,7 @@ import { toast } from "react-toastify";
 // Importing redux state hooks
 import { useSelector, useDispatch } from "react-redux";
 import { register } from "../../features/auth/authSlice";
+import Spinner from "../../components/layout/Spinner";
 
 const Register = ({ onComponentChange }) => {
   const [name, setName] = useState("");
@@ -61,11 +62,16 @@ const Register = ({ onComponentChange }) => {
     };
 
     dispatch(register(profileData));
+    onComponentChange(false);
   };
 
   const handleComponentChange = () => {
     onComponentChange(false);
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <section className={classes.bg}>

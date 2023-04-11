@@ -1,9 +1,11 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classes from "./Login.module.css";
+import { toast } from "react-toastify";
 
 // import redux hoods
 import { useDispatch, useSelector } from "react-redux";
-import { login } from "../../features/auth/authSlice";
+import { login, reset } from "../../features/auth/authSlice";
+import Spinner from "../../components/layout/Spinner";
 
 const Login = ({ onComponentChange }) => {
   const [email, setEmail] = useState("");
@@ -14,6 +16,19 @@ const Login = ({ onComponentChange }) => {
   );
 
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message);
+    }
+
+    // Notify on successful login
+    if (isSuccess && user) {
+      toast.success("Логнате се успешно");
+    }
+
+    dispatch(reset());
+  }, [isError, isSuccess, user, message, dispatch]);
 
   const emailInputHandler = (e) => {
     setEmail(e.target.value);
@@ -35,6 +50,10 @@ const Login = ({ onComponentChange }) => {
   const handleComponentChange = () => {
     onComponentChange(true);
   };
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   return (
     <section className={classes.bg}>

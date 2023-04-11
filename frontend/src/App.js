@@ -14,6 +14,7 @@ import Home from "./screens/home/Home";
 import Photos from "./screens/photos/Photos";
 import Profiles from "./screens/users/Profiles";
 import Contacts from "./screens/contacts/Contacts";
+//import LogUser from "./screens/login/LogUser";
 
 function App() {
   return (
@@ -23,6 +24,7 @@ function App() {
         <Route path="/" element={<Home />}></Route>
         <Route path="/photos" element={<Photos />}></Route>
         <Route path="/profiles" element={<Profiles />}></Route>
+        {/* <Route path="/login" element={<LogUser />}></Route> */}
         <Route path="/contacts" element={<Contacts />}></Route>
 
         {/* <Route path="/my-profile" element={<Contacts />}></Route> */}
