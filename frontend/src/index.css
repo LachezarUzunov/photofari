@@ -65,9 +65,36 @@ input:focus {
   border-bottom: 0.3rem solid var(--baby-blue);
 }
 
+input[type="file"] {
+  display: none;
+}
+
 label {
-  font-family: "Alkatra", cursive;
+  width: 100%;
+  color: black;
   font-size: 1.6rem;
+  background-color: var(--aqua);
+  padding: 1rem 4rem;
+  font-weight: 400;
+  border-radius: 25px;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+textarea {
+  background-color: var(--baby-blue);
+  border: none;
+  color: black;
+  border-radius: 15px;
+  padding: 12px;
+  font-size: 16px;
+  outline: none;
+}
+
+p {
+  font-size: 1.4rem;
+  letter-spacing: 0.1rem;
+  line-height: 1.4;
 }
 
 .main__app {

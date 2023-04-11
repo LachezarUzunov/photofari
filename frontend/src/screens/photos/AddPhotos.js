@@ -4,6 +4,10 @@ import classes from "./AddPhotos.module.css";
 import { toast } from "react-toastify";
 import Spinner from "../../components/layout/Spinner";
 
+// Importing Firebase upload functions
+import { storage } from "../../firebase";
+import { ref, uploadBytes } from "firebase/storage";
+
 // Getting redux hooks
 import { useSelector, useDispatch } from "react-redux";
 
@@ -15,7 +19,7 @@ const AddPhotos = () => {
     description: "",
     photo: "",
   });
-  const { title, description } = formData;
+  const { title, description, photo } = formData;
   const { user } = useSelector((state) => state.auth);
 
   //   useEffect(() => {
@@ -42,19 +46,33 @@ const AddPhotos = () => {
   const handlePhotoUpload = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      photos: e.target.files[0],
+      photo: e.target.files[0],
     }));
   };
 
-  const onSubmit = (e) => {};
+  const onSubmit = (e) => {
+    e.preventDefault();
+
+    if (photo === null) {
+      return;
+    }
+
+    const imageRef = ref(
+      storage,
+      `${user.id}/${title.split(" ").join("")}/${photo.name + v4()}`
+    );
+    uploadBytes(imageRef, photo).then((res) => {
+      console.log(res);
+    });
+  };
 
   return (
     <section className="main">
       <form className={classes.form} onSubmit={onSubmit}>
-        <label htmlFor="title">Заглавие</label>
+        {/* <label htmlFor="title">Заглавие</label> */}
         <input
           type="text"
-          placeholder=""
+          placeholder="Задай заглавие/име на твоята снимка"
           name="title"
           id="title"
           value={title}
@@ -71,17 +89,15 @@ const AddPhotos = () => {
           className={classes.textArea}
           name="preparation"
           id="preparation"
-          cols="10"
-          rows="10"
+          cols="8"
+          rows="8"
           value={description}
           onChange={descInputHandler}
           required
         ></textarea>
 
         <div className={classes.upload__button}>
-          <label className={classes.upload} htmlFor="photos">
-            Добави снимки
-          </label>
+          <label htmlFor="photos">Добави снимка</label>
           <input
             style={{ display: "none" }}
             type="file"
