@@ -4,22 +4,23 @@ const userSchema = mongoose.Schema(
   {
     name: {
       type: String,
-      required: [true, "Please add a name"],
+      required: [true, "Моля добавете име"],
     },
     email: {
       type: String,
-      required: [true, "Please add an email"],
+      required: [true, "Моля добавете имейл"],
       unique: true,
     },
     password: {
       type: String,
-      required: [true, "Please set up a password"],
+      required: [true, "Моля добавете парола"],
     },
     pics: {
       type: Array,
     },
     isAdmin: {
-      Boolean: false,
+      type: Boolean,
+      default: false,
     },
   },
   {
