@@ -32,6 +32,10 @@ const Register = ({ onComponentChange }) => {
       return;
     }
 
+    if (password !== repass) {
+      toast.error("Паролите не съвпадат!");
+    }
+
     const profileData = {
       name,
       email,
