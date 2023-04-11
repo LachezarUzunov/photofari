@@ -12,15 +12,21 @@ import { ref, uploadBytes } from "firebase/storage";
 import { useSelector, useDispatch } from "react-redux";
 
 import { v4 } from "uuid";
+import { uploadPhoto } from "../../features/photos/photosSlice";
 
 const AddPhotos = () => {
   const [formData, setFormData] = useState({
     title: "",
     description: "",
-    photo: "",
+    pic: "",
   });
-  const { title, description, photo } = formData;
+
+  const dispatch = useDispatch();
+
+  const { title, description, pic } = formData;
   const { user } = useSelector((state) => state.auth);
+  const { photo, isPhotoSuccess, isPhotoError, isPhotoLoading, photoMessage } =
+    useSelector((state) => state.photo);
 
   //   useEffect(() => {
   //     if (isError) {
@@ -32,44 +38,52 @@ const AddPhotos = () => {
   const titleInputHandler = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      title: e.target.title,
+      title: e.target.value,
     }));
   };
 
   const descInputHandler = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      description: e.target.description,
+      description: e.target.value,
     }));
   };
 
   const handlePhotoUpload = (e) => {
     setFormData((prevState) => ({
       ...prevState,
-      photo: e.target.files[0],
+      pic: e.target.files[0],
     }));
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
-    if (photo === null) {
+    if (pic === null) {
       return;
     }
 
-    const imageRef = ref(
-      storage,
-      `${user.id}/${title.split(" ").join("")}/${photo.name + v4()}`
-    );
-    uploadBytes(imageRef, photo).then((res) => {
+    const imagePath = `${user.id}/${title.split(" ").join("")}/${
+      pic.name + v4()
+    }`;
+
+    const imageRef = ref(storage, imagePath);
+    uploadBytes(imageRef, pic).then((res) => {
       console.log(res);
     });
+
+    const photoData = {
+      title,
+      description,
+      imagePath,
+    };
+
+    dispatch(uploadPhoto(photoData));
   };
 
   return (
     <section className="main">
       <form className={classes.form} onSubmit={onSubmit}>
-        {/* <label htmlFor="title">Заглавие</label> */}
         <input
           type="text"
           placeholder="Задай заглавие/име на твоята снимка"
@@ -97,14 +111,14 @@ const AddPhotos = () => {
         ></textarea>
 
         <div className={classes.upload__button}>
-          <label htmlFor="photos">Добави снимка</label>
+          <label htmlFor="pic">Добави снимка</label>
           <input
             style={{ display: "none" }}
             type="file"
             accept=".png, .jpg, .jpeg"
-            name="photos"
-            id="photos"
-            filename="photos"
+            name="pic"
+            id="pic"
+            filename="pic"
             onChange={handlePhotoUpload}
             required
           />
