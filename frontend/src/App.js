@@ -19,15 +19,15 @@ import AddPhotos from "./screens/photos/AddPhotos";
 
 function App() {
   return (
-    <main>
+    <main className="main__app">
       <MainNavigation />
       <Routes>
         <Route path="/" element={<Home />}></Route>
         <Route path="/photos" element={<Photos />}></Route>
         <Route path="/profiles" element={<Profiles />}></Route>
         <Route path="/contacts" element={<Contacts />}></Route>
-        <Route path="/add-photo" element={<PrivateRoute />}>
-          <Route path="/add-photo" element={<AddPhotos />} />
+        <Route path="/add" element={<PrivateRoute />}>
+          <Route path="/add" element={<AddPhotos />} />
         </Route>
 
         {/* <Route path="/my-profile" element={<Contacts />}></Route> */}

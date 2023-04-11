@@ -70,8 +70,16 @@ label {
   font-size: 1.6rem;
 }
 
+.main__app {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  min-height: 100vh;
+}
+
 .main {
   margin: 0 auto;
+  min-height: 80vh;
   width: var(--lg-screen);
 }
 
