@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import LastTen from "./LastTen";
 import Register from "./Register";
 import classes from "./Home.module.css";
 import Login from "./Login";
@@ -8,6 +7,7 @@ import Login from "./Login";
 import { useSelector, useDispatch } from "react-redux";
 import { getLastTen, reset } from "../../features/photos/photosSlice";
 import Spinner from "../../components/layout/Spinner";
+import SmallPic from "./SmallPic";
 
 const Home = () => {
   const [regComponent, setRegComponent] = useState(true);
@@ -39,7 +39,21 @@ const Home = () => {
   };
   return (
     <section className={classes.main}>
-      <LastTen />
+      <h1 className={classes.heading}>ПОСЛЕДНИ 10 ПУБЛИКАЦИИ</h1>
+      <article className={classes.pics}>
+        {photos
+          ? photos.map((photo) => (
+              <SmallPic
+                key={photo._id}
+                title={photo.title}
+                user={photo.user}
+                description={photo.description}
+                photo={photo}
+              ></SmallPic>
+            ))
+          : null}
+      </article>
+
       {!user && (
         <div>
           {regComponent ? (
