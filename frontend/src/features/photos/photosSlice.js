@@ -77,6 +77,19 @@ export const photosSlice = createSlice({
         state.isPhotoLoading = false;
         state.isPhotoError = true;
         state.photoMessage = action.payload;
+      })
+      .addCase(getLastTen.pending, (state) => {
+        state.isPhotoLoading = true;
+      })
+      .addCase(getLastTen.fulfilled, (state, action) => {
+        state.isPhotoLoading = false;
+        state.isPhotoSuccess = true;
+        state.photos = action.payload;
+      })
+      .addCase(getLastTen.rejected, (state, action) => {
+        state.isPhotoLoading = false;
+        state.isPhotoError = true;
+        state.photoMessage = action.payload;
       });
   },
 });

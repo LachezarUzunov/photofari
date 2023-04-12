@@ -29,10 +29,11 @@ const publishPhoto = async (photo, token) => {
 
 // GET Last Three recipes
 const getLastTen = async () => {
-  const response = await fetch(`${API_URL}/lastTen`);
+  const response = await fetch(`http://localhost:5000/api/photos/lastTen`);
 
   if (response.status === 200) {
     const photos = await response.json();
+    console.log(photos);
     return photos;
   }
 };

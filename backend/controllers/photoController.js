@@ -19,7 +19,6 @@ const Photo = require("../models/photoModel");
 // @access  public
 const getLastTen = asyncHandler(async (req, res) => {
   const photos = await Photo.find({}).sort({ createdAt: -1 }).limit(10);
-
   if (photos) {
     res.status(200).json(photos);
   }
