@@ -4,7 +4,7 @@ const jwt = require("jsonwebtoken");
 const User = require("../models/userModel");
 
 // @desc    Register a new user
-// @route   /api/lists
+// @route   /api/users
 // @access  private
 const registerUser = asyncHandler(async (req, res) => {
   const { name, email, password } = req.body;
@@ -20,7 +20,7 @@ const registerUser = asyncHandler(async (req, res) => {
 
   if (userExists) {
     res.status(400);
-    throw new Error("Акаунт с такъв имейл вече съществува");
+    throw new Error("User already exists");
   }
 
   // Hash password

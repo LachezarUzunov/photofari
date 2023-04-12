@@ -47,10 +47,17 @@ const postPhoto = asyncHandler(async (req, res) => {
 
   // Get user using the id in the JWT
   const user = await User.findById(req.user.id);
-
+  console.log(user.pics);
   if (!user) {
     res.status(401);
     throw new Error("Няма такъв потребител");
+  }
+
+  if (user.pics >= 10) {
+    res.status(403);
+    throw new Error(
+      "Нямате право да качите повече от 10 снимки, моля изтрийте някоя първо"
+    );
   }
 
   // Post photo
@@ -62,6 +69,12 @@ const postPhoto = asyncHandler(async (req, res) => {
   });
 
   if (newPhoto) {
+    const update = {
+      pics: user.pics + 1,
+    };
+    await User.findOneAndUpdate(req.user.id, update, {
+      new: true,
+    });
     res.status(201).json(newPhoto);
   } else {
     res.status(400);

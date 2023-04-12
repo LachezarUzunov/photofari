@@ -11,14 +11,35 @@ const publishPhoto = async (photo, token) => {
     },
   });
 
+  if (response.status === 401) {
+    throw new Error("Няма такъв потребител");
+  }
+
+  if (response.status === 403) {
+    throw new Error(
+      "Нямате право да качите повече от 10 снимки, моля изтрийте някоя първо"
+    );
+  }
+
   if (response.status === 201) {
     const uploadedPhoto = await response.json();
     return uploadedPhoto;
   }
 };
 
+// GET Last Three recipes
+const getLastTen = async () => {
+  const response = await fetch(`${API_URL}/lastTen`);
+
+  if (response.status === 200) {
+    const photos = await response.json();
+    return photos;
+  }
+};
+
 const photosService = {
   publishPhoto,
+  getLastTen,
 };
 
 export default photosService;

@@ -16,8 +16,8 @@ const userSchema = mongoose.Schema(
       required: [true, "Моля добавете парола"],
     },
     pics: {
-      type: Array,
-      default: [],
+      type: Number,
+      default: 0,
     },
     isAdmin: {
       type: Boolean,

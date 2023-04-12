@@ -2,7 +2,7 @@ const API_URL = "http://localhost:5000/api/users";
 
 // Register user
 const register = async (profileData) => {
-  const response = await fetch(`${API_URL}`, {
+  const response = await fetch(API_URL, {
     method: "POST",
     body: JSON.stringify(profileData),
     headers: {
@@ -11,8 +11,7 @@ const register = async (profileData) => {
   });
 
   if (response.status === 400) {
-    const error = await response.json();
-    throw new Error(error);
+    throw new Error("Акаунт с такъв имейл вече съществува");
   }
 
   if (response.status === 201) {
@@ -33,9 +32,7 @@ const login = async (user) => {
   });
 
   if (response.status === 401) {
-    const error = await response.json();
-    console.log(error);
-    throw new Error(error.message);
+    throw new Error("Невалидни логин детайли");
   }
   if (response.status === 200) {
     const user = await response.json();

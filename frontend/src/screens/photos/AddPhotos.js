@@ -13,7 +13,7 @@ import { ref, uploadBytes } from "firebase/storage";
 import { useSelector, useDispatch } from "react-redux";
 
 import { v4 } from "uuid";
-import { uploadPhoto } from "../../features/photos/photosSlice";
+import { reset, uploadPhoto } from "../../features/photos/photosSlice";
 
 const AddPhotos = () => {
   const [formData, setFormData] = useState({
@@ -90,6 +90,7 @@ const AddPhotos = () => {
     };
 
     dispatch(uploadPhoto(photoData));
+    dispatch(reset());
   };
 
   return (

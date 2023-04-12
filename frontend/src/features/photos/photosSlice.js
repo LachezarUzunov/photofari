@@ -20,6 +20,26 @@ export const uploadPhoto = createAsyncThunk(
       // console.log(photo);
       return await photosService.publishPhoto(photo, token);
     } catch (error) {
+      // console.log(error);
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      console.log(message);
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
+
+// GET Last Ten Photos
+export const getLastTen = createAsyncThunk(
+  "photos/getLastTen",
+  async (_, thunkAPI) => {
+    try {
+      return await photosService.getLastTen();
+    } catch (error) {
       const message =
         (error.response &&
           error.response.data &&
